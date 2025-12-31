@@ -1,5 +1,6 @@
 """Homemade engine using Stockfish (used in testing)."""
 from homemade import ExampleEngine
+from engines.bot.main import get_move
 import chess
 import chess.engine
 import sys

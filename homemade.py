@@ -9,6 +9,8 @@ import random
 from lib.engine_wrapper import MinimalEngine
 from lib.lichess_types import MOVE, HOMEMADE_ARGS_TYPE
 import logging
+from engines.bot.main import get_move
+
 
 
 # Use this logger variable to print messages to the console or log files.
@@ -94,3 +96,11 @@ class ComboEngine(ExampleEngine):
             possible_moves.sort(key=str)
             move = possible_moves[0]
         return PlayResult(move, None, draw_offered=draw_offered)
+    
+class PyBot(ExampleEngine):
+    def search(self, board: chess.Board, time_limit: Limit, ponder: bool, draw_offered: bool, root_moves: MOVE) -> PlayResult:
+        print("GETTING MOVE!")
+    
+        move = get_move(board, 4)
+
+        return PlayResult(move, None)
