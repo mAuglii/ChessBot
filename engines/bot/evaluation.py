@@ -14,6 +14,21 @@ def get_evaluation(board):
             return 0
     if board.is_insufficient_material():
             return 0
+    # Draw by repetition can be claimed
+    if board.can_claim_threefold_repetition():
+        material = get_material(board)
+
+        # If White is clearly ahead, a draw is bad for White
+        if material > 150:
+            return -30
+
+        # If Black is clearly ahead, a draw is bad for Black
+        if material < -150:
+            return 30
+
+        # Otherwise, treat as neutral draw
+        return 0
+
 
     total_material = get_material(board)
 
@@ -36,6 +51,7 @@ def get_evaluation(board):
     kingsq = kingsq + sum([-positions.king[chess.square_mirror(i)]
                         for i in board.pieces(chess.KING, chess.BLACK)])
 
-    eval = total_material + pawnsq + knightsq + rooksq + queensq + kingsq 
+    eval = total_material + pawnsq + knightsq + bishopsq + rooksq + queensq + kingsq
+
 
     return eval
